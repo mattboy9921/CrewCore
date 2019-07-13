@@ -1,0 +1,4 @@
+# CrewCore Configuration
+
+# Enable/disable the /ender command
+ender: true
