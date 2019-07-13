@@ -2,7 +2,6 @@ package net.mattlabs.crewcore;
 
 import co.aikar.commands.PaperCommandManager;
 import net.mattlabs.crewcore.commands.EnderCommand;
-import net.mattlabs.crewcore.listeners.DiscordSRVListener;
 import net.mattlabs.crewcore.listeners.JoinListener;
 import net.mattlabs.crewcore.listeners.QuitListener;
 import net.mattlabs.crewcore.util.ConfigManager;
@@ -10,9 +9,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class CrewCore extends JavaPlugin {
 
-    private EnderCommand enderCommand;
-
-    private DiscordSRVListener discordSRVListener;
     private boolean discordSRVEnabled;
     private static CrewCore instance;
     public PaperCommandManager paperCommandManager;
