@@ -128,15 +128,15 @@
                 <version>2.3</version>
 
                 <configuration>
-                    <!-- Disable auto generation of dependency-reduced-pom.xml -->
-                    <createDependencyReducedPom>false</createDependencyReducedPom>
-
-                    <!-- Include only direct dependencies -->
-                    <artifactSet>
-                        <includes>
-                            <include>mkremins:fanciful</include>
-                        </includes>
-                    </artifactSet>
+                    <dependencyReducedPomLocation>${project.build.directory}/dependency-reduced-pom.xml</dependencyReducedPomLocation>
+                    <!-- ACF -->
+                    <relocations>
+                        <relocation>
+                            <pattern>co.aikar.commands</pattern>
+                            <shadedPattern>net.mattlabs.crewchat.acf</shadedPattern>
+                        </relocation>
+                    </relocations>
+                    <!-- End ACF -->
                 </configuration>
 
                 <!-- Perform shading for package phase -->
