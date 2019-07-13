@@ -1,16 +1,19 @@
 package net.mattlabs.crewcore.commands;
 
+import co.aikar.commands.BaseCommand;
+import co.aikar.commands.annotation.CommandAlias;
+import co.aikar.commands.annotation.Default;
+import co.aikar.commands.annotation.Description;
 import net.mattlabs.crewcore.messaging.Messages;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-public class EnderCommand implements CommandExecutor{
+@CommandAlias("ender")
+public class EnderCommand extends BaseCommand {
 
 
-    @Override
-    public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
+    @Default
+    @Description("Commemorates first Ender Dragon fight on CCS.")
+    public void onDefault(CommandSender commandSender) {
         commandSender.spigot().sendMessage(Messages.ender());
-        return true;
     }
 }
