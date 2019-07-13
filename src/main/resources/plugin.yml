@@ -3,7 +3,13 @@ version: ${project.version}
 description: ${project.description}
 author: mattboy9921 (mattboy9921@aim.com)
 main: net.mattlabs.crewcore.CrewCore
-commands:
-  ender:
-    description: Info on Ender Dragon fight.
-    usage: '/ender'
+
+permissions:
+  crewcore.nonmember:
+    description: Given to nonmembers.
+  crewcore.member:
+    description: Given to members.
+  crewcore.moderator:
+    description: Given to moderators.
+  crewcore.admin:
+    description: Given to admins.

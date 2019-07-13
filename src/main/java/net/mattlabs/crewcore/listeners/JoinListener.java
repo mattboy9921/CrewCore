@@ -19,16 +19,16 @@ public class JoinListener implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        if (player.hasPermission("jl.matt"))
+        if (player.hasPermission("crewcore.admin"))
             for (Player onlinePlayer : Bukkit.getOnlinePlayers())
                 onlinePlayer.spigot().sendMessage(Messages.mattJoin(player.getName()));
-        else if (player.hasPermission("jl.moderator"))
+        else if (player.hasPermission("crewcore.moderator"))
             for (Player onlinePlayer : Bukkit.getOnlinePlayers())
                 onlinePlayer.spigot().sendMessage(Messages.moderatorJoin(player.getName()));
-        else if (player.hasPermission("jl.member"))
+        else if (player.hasPermission("crewcore.member"))
             for (Player onlinePlayer : Bukkit.getOnlinePlayers())
                 onlinePlayer.spigot().sendMessage(Messages.memberJoin(player.getName()));
-        else if (player.hasPermission("jl.nonmember")) {
+        else if (player.hasPermission("crewcore.nonmember")) {
             for (Player onlinePlayer : Bukkit.getOnlinePlayers())
                 onlinePlayer.spigot().sendMessage(Messages.greyJoin(player.getName()));
             player.spigot().sendMessage(Messages.greyInfo(player.getName()));

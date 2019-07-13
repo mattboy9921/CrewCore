@@ -16,16 +16,16 @@ public class QuitListener implements Listener {
     public void onPlayerQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
         event.setQuitMessage("");
-        if (player.hasPermission("jl.matt"))
+        if (player.hasPermission("crewcore.admin"))
             for (Player onlinePlayer : Bukkit.getOnlinePlayers())
                 onlinePlayer.spigot().sendMessage(Messages.allQuit(player.getName()));
-        else if (player.hasPermission("jl.moderator"))
+        else if (player.hasPermission("crewcore.moderator"))
             for (Player onlinePlayer : Bukkit.getOnlinePlayers())
                 onlinePlayer.spigot().sendMessage(Messages.allQuit(player.getName()));
-        else if (player.hasPermission("jl.member"))
+        else if (player.hasPermission("crewcore.member"))
             for (Player onlinePlayer : Bukkit.getOnlinePlayers())
                 onlinePlayer.spigot().sendMessage(Messages.allQuit(player.getName()));
-        else if (player.hasPermission("jl.nonmember")) {
+        else if (player.hasPermission("crewcore.nonmember")) {
             for (Player onlinePlayer : Bukkit.getOnlinePlayers())
                 onlinePlayer.spigot().sendMessage(Messages.greyQuit(player.getName()));
             if (CrewCore.getInstance().getDiscordSRVEnabled())
