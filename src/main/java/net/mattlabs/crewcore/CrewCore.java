@@ -1,10 +1,10 @@
 package net.mattlabs.crewcore;
 
 import co.aikar.commands.PaperCommandManager;
+import net.mattlabs.configmanager.ConfigManager;
 import net.mattlabs.crewcore.commands.EnderCommand;
 import net.mattlabs.crewcore.listeners.JoinListener;
 import net.mattlabs.crewcore.listeners.QuitListener;
-import net.mattlabs.crewcore.util.ConfigManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class CrewCore extends JavaPlugin {

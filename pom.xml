@@ -48,6 +48,11 @@
             <id>Scarsz-Nexus</id>
             <url>https://nexus.scarsz.me/content/groups/public/</url>
         </repository>
+        <!-- For ConfigManager -->
+        <repository>
+            <id>configmanager-repo</id>
+            <url>http://repo.mattlabs.net/repository/maven-public/</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -55,7 +60,7 @@
         <dependency>
             <groupId>com.destroystokyo.paper</groupId>
             <artifactId>paper-api</artifactId>
-            <version>1.14.3-R0.1-SNAPSHOT</version>
+            <version>1.14.4-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <!-- For ACF -->
@@ -70,6 +75,12 @@
             <artifactId>discordsrv</artifactId>
             <version>1.16.6</version>
             <scope>provided</scope>
+        </dependency>
+        <!-- For ConfigManager -->
+        <dependency>
+            <groupId>net.mattlabs.configmanager</groupId>
+            <artifactId>ConfigManager</artifactId>
+            <version>1.0.0</version>
         </dependency>
     </dependencies>
 
