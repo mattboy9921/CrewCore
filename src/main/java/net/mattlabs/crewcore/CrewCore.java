@@ -3,6 +3,7 @@ package net.mattlabs.crewcore;
 import co.aikar.commands.PaperCommandManager;
 import net.mattlabs.configmanager.ConfigManager;
 import net.mattlabs.crewcore.commands.EnderCommand;
+import net.mattlabs.crewcore.commands.FCommand;
 import net.mattlabs.crewcore.listeners.JoinListener;
 import net.mattlabs.crewcore.listeners.QuitListener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -46,6 +47,7 @@ public class CrewCore extends JavaPlugin {
 
         // Register Commands with ACF
         if (enderEnabled()) paperCommandManager.registerCommand(new EnderCommand());
+        paperCommandManager.registerCommand(new FCommand());
     }
 
     public void onDisable() {

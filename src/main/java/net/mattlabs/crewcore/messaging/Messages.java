@@ -175,4 +175,30 @@ public class Messages {
                     .color(DARK_GRAY)
                 .create();
     }
+
+    public static BaseComponent[] pressedFToPayRespects(String name) {
+        // %name% Pressed &e&lF&r to Pay Respects
+        return new ComponentBuilder(name + " Pressed ")
+                .append("F")
+                    .color(YELLOW)
+                    .bold(true)
+                .append(" to Pay Respects")
+                    .reset()
+                .create();
+    }
+
+    public static BaseComponent[] canIgetAnF() {
+        // Can I get an &e&lF
+        return new ComponentBuilder("Can I get an ")
+                .append("F")
+                    .color(YELLOW)
+                    .bold(true)
+                .create();
+    }
+
+    public static BaseComponent[] inTheChatBois() {
+        // in the chat bois?
+        return new ComponentBuilder("in the chat bois?")
+                .create();
+    }
 }
