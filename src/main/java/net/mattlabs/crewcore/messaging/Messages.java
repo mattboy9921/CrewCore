@@ -145,11 +145,13 @@ public class Messages {
                     .color(GRAY)
                     .bold(true)
                 .append(", ")
+                    .reset()
                     .color(GRAY)
                 .append("survival")
                     .color(GRAY)
                     .bold(true)
                 .append(" server.\n")
+                    .reset()
                     .color(GRAY)
                 .append("No game mechanics are altered although plugins are used.\n")
                     .color(GRAY)
@@ -169,6 +171,7 @@ public class Messages {
                                     .create()))
                     .event(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://crewcraftserver.net/contact.html"))
                 .append("-----------------------------------------------------")
+                    .reset()
                     .color(DARK_GRAY)
                 .create();
     }
