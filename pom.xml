@@ -142,14 +142,22 @@
 
                 <configuration>
                     <dependencyReducedPomLocation>${project.build.directory}/dependency-reduced-pom.xml</dependencyReducedPomLocation>
-                    <!-- ACF -->
                     <relocations>
+                        <!-- ACF -->
                         <relocation>
                             <pattern>co.aikar.commands</pattern>
                             <shadedPattern>net.mattlabs.crewcore.acf</shadedPattern>
                         </relocation>
+                        <relocation>
+                            <pattern>co.aikar.locales</pattern>
+                            <shadedPattern>net.mattlabs.crewcore.locales</shadedPattern>
+                        </relocation>
+                        <!-- DiscordSRV -->
+                        <relocation>
+                            <pattern>com.discordsrv</pattern>
+                            <shadedPattern>net.mattlabs.crewcore</shadedPattern>
+                        </relocation>
                     </relocations>
-                    <!-- End ACF -->
                 </configuration>
 
                 <!-- Perform shading for package phase -->
