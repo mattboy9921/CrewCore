@@ -48,10 +48,10 @@
             <id>Scarsz-Nexus</id>
             <url>https://nexus.scarsz.me/content/groups/public/</url>
         </repository>
-        <!-- For ConfigManager -->
+        <!-- For Configurate -->
         <repository>
-            <id>configmanager-repo</id>
-            <url>http://repo.mattlabs.net/repository/maven-public/</url>
+            <id>sponge</id>
+            <url>https://repo.spongepowered.org/maven</url>
         </repository>
     </repositories>
 
@@ -76,11 +76,11 @@
             <version>1.21.1</version>
             <scope>provided</scope>
         </dependency>
-        <!-- For ConfigManager -->
+        <!-- For Configurate -->
         <dependency>
-            <groupId>net.mattlabs.configmanager</groupId>
-            <artifactId>ConfigManager</artifactId>
-            <version>1.1.0</version>
+            <groupId>org.spongepowered</groupId>
+            <artifactId>configurate-hocon</artifactId>
+            <version>4.0.0</version>
         </dependency>
     </dependencies>
 
@@ -155,6 +155,19 @@
                         <!-- DiscordSRV -->
                         <relocation>
                             <pattern>com.discordsrv</pattern>
+                            <shadedPattern>net.mattlabs.crewcore</shadedPattern>
+                        </relocation>
+                        <!-- Configurate -->
+                        <relocation>
+                            <pattern>org.spongepowered</pattern>
+                            <shadedPattern>net.mattlabs.crewcore</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>io.leangen.geantyref</pattern>
+                            <shadedPattern>net.mattlabs.crewcore</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>com.typesafe</pattern>
                             <shadedPattern>net.mattlabs.crewcore</shadedPattern>
                         </relocation>
                     </relocations>

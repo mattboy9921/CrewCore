@@ -1,11 +1,12 @@
 package net.mattlabs.crewcore;
 
 import co.aikar.commands.PaperCommandManager;
-import net.mattlabs.configmanager.ConfigManager;
+import io.leangen.geantyref.TypeToken;
 import net.mattlabs.crewcore.commands.EnderCommand;
 import net.mattlabs.crewcore.commands.FCommand;
 import net.mattlabs.crewcore.listeners.JoinListener;
 import net.mattlabs.crewcore.listeners.QuitListener;
+import net.mattlabs.crewcore.util.ConfigurateManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class CrewCore extends JavaPlugin {
@@ -13,7 +14,7 @@ public class CrewCore extends JavaPlugin {
     private boolean discordSRVEnabled;
     private static CrewCore instance;
     public PaperCommandManager paperCommandManager;
-    private ConfigManager configManager;
+    private ConfigurateManager configurateManager;
 
     public void onEnable() {
 
@@ -33,13 +34,11 @@ public class CrewCore extends JavaPlugin {
         paperCommandManager = new PaperCommandManager(this);
 
         // Configuration Section
-        configManager = new ConfigManager(this);
-        configManager.loadConfigFiles(
-                new ConfigManager.ConfigPath(
-                        "config.yml",
-                        "config.yml",
-                        "config.yml"));
-        configManager.saveAllConfigs(false);
+        configurateManager = new ConfigurateManager();
+        configurateManager.add("config.conf", TypeToken.get(Config.class), new Config(), Config::new);
+        configurateManager.saveDefaults("config.conf");
+        configurateManager.load("config.conf");
+        configurateManager.save("config.conf");
 
         // Register Listeners
         getServer().getPluginManager().registerEvents(new JoinListener(), this);
@@ -59,7 +58,8 @@ public class CrewCore extends JavaPlugin {
     }
 
     private boolean enderEnabled() {
-        return configManager.getFileConfig("config.yml").getBoolean("ender");
+        Config config = configurateManager.get("config.conf");
+        return config.getEnder();
     }
 
     // DiscordSRV Helper Method
