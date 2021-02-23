@@ -133,7 +133,7 @@ public class Messages {
         // &7This is a &lvanilla&r&7, &lsurvival&r&7 server.
         // &7No game mechanics are altered although plugins are used.
         // &7You are currently not a member. Feel free to look around.
-        // %player%", "&7If you'd like to join the server, please click here: || &9&l[Apply]||url:https://crewcraftserver.net/contact.html||ttp:&b&lClick &rhere to apply.
+        // %player%", "&7If you'd like to join the server, please click here: || &9&l[Apply]||url:https://crewcraftserver.net/apply||ttp:&b&lClick &rhere to apply.
         // &8-----------------------------------------------------
         return new ComponentBuilder("-----------------------------------------------------\n")
                     .color(DARK_GRAY)
@@ -169,7 +169,7 @@ public class Messages {
                                     .append(" here to apply.")
                                         .reset()
                                     .create()))
-                    .event(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://crewcraftserver.net/contact.html"))
+                    .event(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://crewcraftserver.net/apply"))
                 .append("-----------------------------------------------------")
                     .reset()
                     .color(DARK_GRAY)
