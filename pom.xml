@@ -158,6 +158,17 @@
                             <shadedPattern>net.mattlabs.crewcore</shadedPattern>
                         </relocation>
                     </relocations>
+
+                    <!-- Fix signed dependency JARs -->
+                    <filters>
+                        <filter>
+                            <artifact>*:*:*:*</artifact>
+                            <excludes>
+                                <exclude>META-INF/*.RSA</exclude>
+                                <exclude>META-INF/*.SF</exclude>
+                            </excludes>
+                        </filter>
+                    </filters>
                 </configuration>
 
                 <!-- Perform shading for package phase -->
