@@ -2,6 +2,7 @@ package net.mattlabs.crewcore;
 
 import co.aikar.commands.PaperCommandManager;
 import io.leangen.geantyref.TypeToken;
+import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.mattlabs.crewcore.commands.EnderCommand;
 import net.mattlabs.crewcore.commands.FCommand;
 import net.mattlabs.crewcore.listeners.JoinListener;
@@ -15,6 +16,7 @@ public class CrewCore extends JavaPlugin {
     private static CrewCore instance;
     public PaperCommandManager paperCommandManager;
     private ConfigurateManager configurateManager;
+    private BukkitAudiences platform;
 
     public void onEnable() {
 
@@ -47,6 +49,9 @@ public class CrewCore extends JavaPlugin {
         // Register Commands with ACF
         if (enderEnabled()) paperCommandManager.registerCommand(new EnderCommand());
         paperCommandManager.registerCommand(new FCommand());
+
+        // Register Audience (Messages)
+        platform = BukkitAudiences.create(this);
     }
 
     public void onDisable() {
@@ -60,6 +65,10 @@ public class CrewCore extends JavaPlugin {
     private boolean enderEnabled() {
         Config config = configurateManager.get("config.conf");
         return config.getEnder();
+    }
+
+    public BukkitAudiences getPlatform() {
+        return platform;
     }
 
     // DiscordSRV Helper Method

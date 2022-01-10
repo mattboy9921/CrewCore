@@ -1,11 +1,11 @@
 package net.mattlabs.crewcore.messaging;
 
-import net.md_5.bungee.api.chat.BaseComponent;
-import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.ComponentBuilder;
-import net.md_5.bungee.api.chat.HoverEvent;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.event.ClickEvent;
+import net.kyori.adventure.text.event.HoverEvent;
 
-import static net.md_5.bungee.api.ChatColor.*;
+import static net.kyori.adventure.text.format.NamedTextColor.*;
+import static net.kyori.adventure.text.format.TextDecoration.BOLD;
 
 public class Messages {
 
@@ -13,121 +13,84 @@ public class Messages {
 
     }
 
-    public static BaseComponent[] ender() {
+    public static Component ender() {
         // &7--------------------------&5[]&7--------------------------
         // &5The Ender Dragon was courageously defeated on January 6th, 2017. Took us long enough!
         // &5Special thanks to Animage7, ItzYuno, Keitorin_, Kitsune376, mattboy9921, shawgirl05, _TheBoxman_ and Zingdos!
         // &7--------------------------&5[]&7--------------------------
-        return new ComponentBuilder("--------------------------")
-                    .color(GRAY)
-                .append("[]")
-                    .color(DARK_PURPLE)
-                .append("--------------------------\n")
-                    .color(GRAY)
-                .append("The Ender Dragon was courageously defeated on January 6th, 2017. Took us long enough!\n")
-                    .color(DARK_PURPLE)
-                .append("Special thanks to Animage7, ItzYuno, Keitorin_, Kitsune376, mattboy9921, shawgirl05, _TheBoxman_ and Zingdos!\n")
-                    .color(DARK_PURPLE)
-                .append("--------------------------")
-                    .color(GRAY)
-                .append("[]")
-                    .color(DARK_PURPLE)
-                .append("--------------------------")
-                    .color(GRAY)
-                .create();
+        return Component.text()
+                .append(Component.text("--------------------------", GRAY))
+                .append(Component.text("[]", DARK_PURPLE))
+                .append(Component.text("--------------------------\n", GRAY))
+                .append(Component.text("The Ender Dragon was courageously defeated on January 6th, 2017. Took us long enough!\n", DARK_PURPLE))
+                .append(Component.text("Special thanks to Animage7, ItzYuno, Keitorin_, Kitsune376, mattboy9921, shawgirl05, _TheBoxman_ and Zingdos!\n", DARK_PURPLE))
+                .append(Component.text("--------------------------", GRAY))
+                .append(Component.text("[]", DARK_PURPLE))
+                .append(Component.text("--------------------------", GRAY))
+                .build();
     }
 
-    public static BaseComponent[] greyJoin(String name) {
+    public static Component greyJoin(String name) {
         //   &8[&7&l+&r&8]  &7%player%
-        return new ComponentBuilder("  [")
-                    .color(DARK_GRAY)
-                .append("+")
-                    .color(GRAY)
-                    .bold(true)
-                .append("]  ")
-                    .reset()
-                    .color(DARK_GRAY)
-                .append(name)
-                    .color(GRAY)
-                .create();
+        return Component.text()
+                .append(Component.text("  [", DARK_GRAY))
+                .append(Component.text("+", GRAY, BOLD))
+                .append(Component.text("]  ", DARK_GRAY))
+                .append(Component.text(name, GRAY))
+                .build();
     }
 
-    public static BaseComponent[] memberJoin(String name) {
+    public static Component memberJoin(String name) {
         //   &8[&7&l+&r&8]  &7%player%
-        return new ComponentBuilder("  [")
-                    .color(DARK_GRAY)
-                .append("+")
-                    .color(GREEN)
-                    .bold(true)
-                .append("]  ")
-                    .reset()
-                    .color(DARK_GRAY)
-                .append(name)
-                    .color(GRAY)
-                .create();
+        return Component.text()
+                .append(Component.text("  [", DARK_GRAY))
+                .append(Component.text("+", GREEN, BOLD))
+                .append(Component.text("]  ", DARK_GRAY))
+                .append(Component.text(name, GRAY))
+                .build();
     }
 
-    public static BaseComponent[] moderatorJoin(String name) {
+    public static Component moderatorJoin(String name) {
         //   &8[&7&l+&r&8]  &7%player%
-        return new ComponentBuilder("  [")
-                    .color(DARK_GRAY)
-                .append("+")
-                    .color(AQUA)
-                    .bold(true)
-                .append("]  ")
-                    .reset()
-                    .color(DARK_GRAY)
-                .append(name)
-                    .color(GRAY)
-                .create();
+        return Component.text()
+                .append(Component.text("  [", DARK_GRAY))
+                .append(Component.text("+", AQUA, BOLD))
+                .append(Component.text("]  ", DARK_GRAY))
+                .append(Component.text(name, GRAY))
+                .build();
     }
 
-    public static BaseComponent[] mattJoin(String name) {
+    public static Component mattJoin(String name) {
         //   &8[&7&l+&r&8]  &7%player%
-        return new ComponentBuilder("  [")
-                    .color(DARK_GRAY)
-                .append("+")
-                    .color(DARK_RED)
-                    .bold(true)
-                .append("]  ")
-                    .reset()
-                    .color(DARK_GRAY)
-                .append(name)
-                    .color(GRAY)
-                .create();
+        return Component.text()
+                .append(Component.text("  [", DARK_GRAY))
+                .append(Component.text("+", DARK_RED, BOLD))
+                .append(Component.text("]  ", DARK_GRAY))
+                .append(Component.text(name, GRAY))
+                .build();
     }
 
-    public static BaseComponent[] greyQuit(String name) {
+    public static Component greyQuit(String name) {
         //   &8[&7&l+&r&8]  &7%player%
-        return new ComponentBuilder("  [")
-                    .color(DARK_GRAY)
-                .append("-")
-                    .color(GRAY)
-                    .bold(true)
-                .append("]  ")
-                    .reset()
-                    .color(DARK_GRAY)
-                .append(name)
-                    .color(GRAY)
-                .create();
+        return Component.text()
+                .append(Component.text("  [", DARK_GRAY))
+                .append(Component.text("-", GRAY, BOLD))
+                .append(Component.text("]  ", DARK_GRAY))
+                .append(Component.text(name, GRAY))
+                .build();
     }
 
-    public static BaseComponent[] allQuit(String name) {
+    public static Component allQuit(String name) {
         //   &8[&7&l+&r&8]  &7%player%
-        return new ComponentBuilder("  [")
-                    .color(DARK_GRAY)
-                .append("-")
-                    .color(DARK_RED)
-                    .bold(true)
-                .append("]  ")
-                    .reset()
-                    .color(DARK_GRAY)
-                .append(name)
-                    .color(GRAY)
-                .create();
+        return Component.text()
+                .append(Component.text("  [", DARK_GRAY))
+                .append(Component.text("-", DARK_RED, BOLD))
+                .append(Component.text("]  ", DARK_GRAY))
+                .append(Component.text(name, GRAY))
+                .build();
     }
 
-    public static BaseComponent[] greyInfo(String name) {
+    public static Component greyInfo(String name) {
         // &8-----------------------------------------------------
         // &7Welcome to the Crew Craft Server, %player%&7!
         // &7This is a &lvanilla&r&7, &lsurvival&r&7 server.
@@ -135,70 +98,45 @@ public class Messages {
         // &7You are currently not a member. Feel free to look around.
         // %player%", "&7If you'd like to join the server, please click here: || &9&l[Apply]||url:https://crewcraftserver.net/apply||ttp:&b&lClick &rhere to apply.
         // &8-----------------------------------------------------
-        return new ComponentBuilder("-----------------------------------------------------\n")
-                    .color(DARK_GRAY)
-                .append("Welcome to the Crew Craft Server, " + name + "!\n")
-                    .color(GRAY)
-                .append("This is a ")
-                    .color(GRAY)
-                .append("vanilla")
-                    .color(GRAY)
-                    .bold(true)
-                .append(", ")
-                    .reset()
-                    .color(GRAY)
-                .append("survival")
-                    .color(GRAY)
-                    .bold(true)
-                .append(" server.\n")
-                    .reset()
-                    .color(GRAY)
-                .append("No game mechanics are altered although plugins are used.\n")
-                    .color(GRAY)
-                .append("You are currently not a member. Feel free to look around.\n")
-                    .color(GRAY)
-                .append("If you'd like to join the server, please click here: ")
-                    .color(GRAY)
-                .append("[Apply]\n")
-                    .color(BLUE)
-                    .bold(true)
-                    .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
-                            new ComponentBuilder("Click")
-                                        .color(AQUA)
-                                        .bold(true)
-                                    .append(" here to apply.")
-                                        .reset()
-                                    .create()))
-                    .event(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://crewcraftserver.net/apply"))
-                .append("-----------------------------------------------------")
-                    .reset()
-                    .color(DARK_GRAY)
-                .create();
+        return Component.text()
+                .append(Component.text("-----------------------------------------------------\n", DARK_GRAY))
+                .append(Component.text("Welcome to the Crew Craft Server, " + name + "!\n", GRAY))
+                .append(Component.text("This is a ", GRAY))
+                .append(Component.text("vanilla", GRAY, BOLD))
+                .append(Component.text(", ", GRAY))
+                .append(Component.text("survival", GRAY, BOLD))
+                .append(Component.text(" server.\n", GRAY))
+                .append(Component.text("No game mechanics are altered although plugins are used.\n", GRAY))
+                .append(Component.text("You are currently not a member. Feel free to look around.\n", GRAY))
+                .append(Component.text("If you'd like to join the server, please click here: ", GRAY))
+                .append(Component.text("[Apply]\n", BLUE, BOLD)
+                        .hoverEvent(HoverEvent.showText(Component.text().append(Component.text("Click here to apply."))))
+                        .clickEvent(ClickEvent.openUrl("https://crewcraftserver.net/apply")))
+                .append(Component.text("-----------------------------------------------------", DARK_GRAY))
+                .build();
     }
 
-    public static BaseComponent[] pressedFToPayRespects(String name) {
+    public static Component pressedFToPayRespects(String name) {
         // %name% Pressed &e&lF&r to Pay Respects
-        return new ComponentBuilder(name + " Pressed ")
-                .append("F")
-                    .color(YELLOW)
-                    .bold(true)
-                .append(" to Pay Respects")
-                    .reset()
-                .create();
+        return Component.text()
+                .append(Component.text(name + " Pressed ", WHITE))
+                .append(Component.text("F", YELLOW, BOLD))
+                .append(Component.text(" to Pay Respects", WHITE))
+                .build();
     }
 
-    public static BaseComponent[] canIgetAnF() {
+    public static Component canIGetAnF() {
         // Can I get an &e&lF
-        return new ComponentBuilder("Can I get an ")
-                .append("F")
-                    .color(YELLOW)
-                    .bold(true)
-                .create();
+        return Component.text()
+                .append(Component.text("Can I get an ", WHITE))
+                .append(Component.text("F", YELLOW, BOLD))
+                .build();
     }
 
-    public static BaseComponent[] inTheChatBois() {
+    public static Component inTheChatBois() {
         // in the chat bois?
-        return new ComponentBuilder("in the chat bois?")
-                .create();
+        return Component.text()
+                .append(Component.text("in the chat bois?", WHITE))
+                .build();
     }
 }
