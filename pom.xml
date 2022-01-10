@@ -60,7 +60,7 @@
         <dependency>
             <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
-            <version>1.17.1-R0.1-SNAPSHOT</version>
+            <version>1.18.1-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <!-- For ACF -->
@@ -73,7 +73,7 @@
         <dependency>
             <groupId>com.discordsrv</groupId>
             <artifactId>discordsrv</artifactId>
-            <version>1.23.0</version>
+            <version>1.24.0</version>
             <scope>provided</scope>
         </dependency>
         <!-- For Configurate -->
@@ -176,6 +176,11 @@
                         <relocation>
                             <pattern>com.typesafe</pattern>
                             <shadedPattern>net.mattlabs.crewcore.typesafe</shadedPattern>
+                        </relocation>
+                        <!-- Adventure -->
+                        <relocation>
+                            <pattern>net.kyori</pattern>
+                            <shadedPattern>net.mattlabs.crewcore</shadedPattern>
                         </relocation>
                     </relocations>
 
