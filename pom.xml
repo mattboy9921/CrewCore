@@ -162,20 +162,20 @@
                         <!-- DiscordSRV -->
                         <relocation>
                             <pattern>com.discordsrv</pattern>
-                            <shadedPattern>net.mattlabs.crewcore</shadedPattern>
+                            <shadedPattern>net.mattlabs.crewcore.discordsrv</shadedPattern>
                         </relocation>
                         <!-- Configurate -->
                         <relocation>
                             <pattern>org.spongepowered</pattern>
-                            <shadedPattern>net.mattlabs.crewcore</shadedPattern>
+                            <shadedPattern>net.mattlabs.crewcore.spongepowered</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>io.leangen.geantyref</pattern>
-                            <shadedPattern>net.mattlabs.crewcore</shadedPattern>
+                            <shadedPattern>net.mattlabs.crewcore.geantryref</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>com.typesafe</pattern>
-                            <shadedPattern>net.mattlabs.crewcore</shadedPattern>
+                            <shadedPattern>net.mattlabs.crewcore.typesafe</shadedPattern>
                         </relocation>
                     </relocations>
 
