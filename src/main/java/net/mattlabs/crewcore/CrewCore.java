@@ -8,7 +8,12 @@ import net.mattlabs.crewcore.commands.FCommand;
 import net.mattlabs.crewcore.listeners.JoinListener;
 import net.mattlabs.crewcore.listeners.QuitListener;
 import net.mattlabs.crewcore.util.ConfigurateManager;
+import net.mattlabs.crewcore.util.DiscordReminder;
+import net.milkbowl.vault.permission.Permission;
+import org.bukkit.Bukkit;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitTask;
 
 public class CrewCore extends JavaPlugin {
 
@@ -17,10 +22,28 @@ public class CrewCore extends JavaPlugin {
     public PaperCommandManager paperCommandManager;
     private ConfigurateManager configurateManager;
     private BukkitAudiences platform;
+    private static Permission permission;
+    private Config config;
+    private BukkitTask discordReminder;
 
     public void onEnable() {
 
         instance = this;
+
+        // Vault Check
+        if (!hasVault()) {
+            this.getLogger().severe("Disabled due to no Vault dependency found!");
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
+
+        // Vault Setup
+        if (!setupPermissions()) {
+            this.getLogger().severe("Disabled due to Vault Permissions error!");
+            this.getLogger().severe("Is there a permission plugin installed?");
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
 
         // DiscordSRV Check
         if (!hasDiscordSRV()) {
@@ -42,6 +65,11 @@ public class CrewCore extends JavaPlugin {
         configurateManager.load("config.conf");
         configurateManager.save("config.conf");
 
+        config = configurateManager.get("config.conf");
+
+        // Register Audience
+        platform = BukkitAudiences.create(this);
+
         // Register Listeners
         getServer().getPluginManager().registerEvents(new JoinListener(), this);
         getServer().getPluginManager().registerEvents(new QuitListener(), this);
@@ -50,12 +78,12 @@ public class CrewCore extends JavaPlugin {
         if (enderEnabled()) paperCommandManager.registerCommand(new EnderCommand());
         paperCommandManager.registerCommand(new FCommand());
 
-        // Register Audience (Messages)
-        platform = BukkitAudiences.create(this);
+        // Enable Discord Reminder
+        discordReminder = Bukkit.getScheduler().runTaskTimerAsynchronously(this, new DiscordReminder(), 0, 2400);
     }
 
     public void onDisable() {
-
+        discordReminder.cancel();
     }
 
     public static CrewCore getInstance() {
@@ -69,6 +97,29 @@ public class CrewCore extends JavaPlugin {
 
     public BukkitAudiences getPlatform() {
         return platform;
+    }
+
+    public static Permission getPermission() {
+        return permission;
+    }
+
+    public Config getConfigCC() {
+        return config;
+    }
+
+    // Vault Helper Methods
+
+    private boolean hasVault() {
+        return getServer().getPluginManager().getPlugin("Vault") != null;
+    }
+
+    private boolean setupPermissions() {
+        RegisteredServiceProvider<Permission> rsp = getServer().getServicesManager().getRegistration(Permission.class);
+        if (rsp != null) {
+            permission = rsp.getProvider();
+            return permission != null;
+        }
+        else return false;
     }
 
     // DiscordSRV Helper Method

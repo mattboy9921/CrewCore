@@ -6,6 +6,7 @@ import net.kyori.adventure.text.event.HoverEvent;
 
 import static net.kyori.adventure.text.format.NamedTextColor.*;
 import static net.kyori.adventure.text.format.TextDecoration.BOLD;
+import static net.kyori.adventure.text.format.TextDecoration.ITALIC;
 
 public class Messages {
 
@@ -137,6 +138,16 @@ public class Messages {
         // in the chat bois?
         return Component.text()
                 .append(Component.text("in the chat bois?", WHITE))
+                .build();
+    }
+
+    public static Component discordReminder() {
+        // &aPlease link your Discord and MC accounts! [Discord Link]
+        return Component.text()
+                .append(Component.text("Please link your Discord and MC accounts! ", GREEN, ITALIC))
+                .append(Component.text("[Discord Link]", BLUE, BOLD)
+                        .hoverEvent(HoverEvent.showText(Component.text("Click here to link your Discord.")))
+                        .clickEvent(ClickEvent.suggestCommand("/discord link")))
                 .build();
     }
 }
