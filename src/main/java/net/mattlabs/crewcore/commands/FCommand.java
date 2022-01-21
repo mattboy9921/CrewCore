@@ -30,7 +30,7 @@ public class FCommand extends BaseCommand {
         }
         else {
             for (Player player : CrewCore.getInstance().getServer().getOnlinePlayers())
-                CrewCore.getInstance().getPlatform().player(player).sendMessage(Messages.pressedFToPayRespects(commandSender.getName()));
+                CrewCore.getInstance().getPlatform().player(player).sendActionBar(Messages.pressedFToPayRespects(commandSender.getName()));
         }
     }
 }
