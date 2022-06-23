@@ -8,7 +8,7 @@
 
     <groupId>net.mattlabs.crewcore</groupId>
     <artifactId>CrewCore</artifactId>
-    <version>1.4.1</version>
+    <version>1.4.2</version>
 
     <description>
         Extra commands for CCS
