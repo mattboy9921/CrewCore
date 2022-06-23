@@ -147,7 +147,7 @@ public class Messages {
                 .append(Component.text("Please link your Discord and MC accounts! ", GREEN, ITALIC))
                 .append(Component.text("[Discord Link]", BLUE, BOLD)
                         .hoverEvent(HoverEvent.showText(Component.text("Click here to link your Discord.")))
-                        .clickEvent(ClickEvent.suggestCommand("/discord link")))
+                        .clickEvent(ClickEvent.runCommand("/discord link")))
                 .build();
     }
 }
