@@ -1,6 +1,9 @@
 package net.mattlabs.crewcore;
 
-import co.aikar.commands.PaperCommandManager;
+import cloud.commandframework.bukkit.CloudBukkitCapabilities;
+import cloud.commandframework.execution.AsynchronousCommandExecutionCoordinator;
+import cloud.commandframework.execution.FilteringCommandSuggestionProcessor;
+import cloud.commandframework.minecraft.extras.MinecraftExceptionHandler;
 import io.leangen.geantyref.TypeToken;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.mattlabs.crewcore.commands.EnderCommand;
@@ -11,20 +14,25 @@ import net.mattlabs.crewcore.util.ConfigurateManager;
 import net.mattlabs.crewcore.util.DiscordReminder;
 import net.milkbowl.vault.permission.Permission;
 import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
+
+import java.util.function.Function;
 
 public class CrewCore extends JavaPlugin {
 
     private boolean discordSRVEnabled;
     private static CrewCore instance;
-    public PaperCommandManager paperCommandManager;
+    public cloud.commandframework.paper.PaperCommandManager<CommandSender> commandManager;
     private ConfigurateManager configurateManager;
     private BukkitAudiences platform;
     private static Permission permission;
     private Config config;
     private BukkitTask discordReminder;
+
+    public static boolean testEnabled = false;
 
     public void onEnable() {
 
@@ -55,9 +63,6 @@ public class CrewCore extends JavaPlugin {
             discordSRVEnabled = true;
         }
 
-        // Register ACF
-        paperCommandManager = new PaperCommandManager(this);
-
         // Configuration Section
         configurateManager = new ConfigurateManager();
         configurateManager.add("config.conf", TypeToken.get(Config.class), new Config(), Config::new);
@@ -74,9 +79,38 @@ public class CrewCore extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new JoinListener(), this);
         getServer().getPluginManager().registerEvents(new QuitListener(), this);
 
-        // Register Commands with ACF
-        if (enderEnabled()) paperCommandManager.registerCommand(new EnderCommand());
-        paperCommandManager.registerCommand(new FCommand());
+        // Register Cloud
+        try {
+            commandManager = new cloud.commandframework.paper.PaperCommandManager<>(
+                    this,
+                    AsynchronousCommandExecutionCoordinator.<CommandSender>builder().build(),
+                    Function.identity(),
+                    Function.identity()
+            );
+        } catch (Exception e) {
+            this.getLogger().severe("Could not enable Cloud, disabling plugin...");
+            Bukkit.getPluginManager().disablePlugin(this);
+        }
+        // Use contains filter for suggestions
+        commandManager.commandSuggestionProcessor(new FilteringCommandSuggestionProcessor<>(
+                FilteringCommandSuggestionProcessor.Filter.<CommandSender>contains(true).andTrimBeforeLastSpace()
+        ));
+        // Register Brigadier
+        if (commandManager.hasCapability(CloudBukkitCapabilities.BRIGADIER)) commandManager.registerBrigadier();
+        // Register asynchronous completions
+        if (commandManager.hasCapability(CloudBukkitCapabilities.ASYNCHRONOUS_COMPLETION)) commandManager.registerAsynchronousCompletions();
+        // Override exception handlers
+        new MinecraftExceptionHandler<CommandSender>()
+                .withInvalidSyntaxHandler()
+                .withInvalidSenderHandler()
+                .withNoPermissionHandler()
+                .withArgumentParsingHandler()
+                .withCommandExecutionHandler()
+                .apply(commandManager, platform::sender);
+        // Create Commands
+        if (config.getEnder() || testEnabled)
+            new EnderCommand(commandManager, this);
+        new FCommand(commandManager, this);
 
         // Enable Discord Reminder
         discordReminder = Bukkit.getScheduler().runTaskTimerAsynchronously(this, new DiscordReminder(), 0, 2400);
@@ -88,11 +122,6 @@ public class CrewCore extends JavaPlugin {
 
     public static CrewCore getInstance() {
         return instance;
-    }
-
-    private boolean enderEnabled() {
-        Config config = configurateManager.get("config.conf");
-        return config.getEnder();
     }
 
     public BukkitAudiences getPlatform() {
