@@ -47,7 +47,7 @@ public class CrewCore extends JavaPlugin {
         }
 
         // Vault Setup
-        if (!setupPermissions()) {
+        if (!setupPermissions() && !testEnabled) {
             this.getLogger().severe("Disabled due to Vault Permissions error!");
             this.getLogger().severe("Is there a permission plugin installed?");
             getServer().getPluginManager().disablePlugin(this);
@@ -118,6 +118,7 @@ public class CrewCore extends JavaPlugin {
     }
 
     public void onDisable() {
+        platform.close();
         discordReminder.cancel();
     }
 
@@ -144,7 +145,7 @@ public class CrewCore extends JavaPlugin {
     // Vault Helper Methods
 
     private boolean hasVault() {
-        return getServer().getPluginManager().getPlugin("Vault") != null;
+        return getServer().getPluginManager().getPlugin("Vault") != null || testEnabled;
     }
 
     private boolean setupPermissions() {
