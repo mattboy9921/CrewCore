@@ -22,12 +22,12 @@ public class EnderCommand {
 
     private void commands() {
         // Set up builder with permissions
-        Command.Builder<CommandSender> skipNightBuilder = commandManager.commandBuilder("f");
+        Command.Builder<CommandSender> builder = commandManager.commandBuilder("ender");
 
         // Base Command
-        commandManager.command(skipNightBuilder
+        commandManager.command(builder
                 .meta(CommandMeta.DESCRIPTION, "Commemorates first Ender Dragon fight on CCS.")
-                .handler(context -> commandManager.taskRecipe().begin(context).asynchronous(this::onEnder).execute())
+                .handler(this::onEnder)
         );
     }
 

@@ -27,13 +27,13 @@ public class FCommand {
 
     private void commands() {
         // Set up builder with permissions
-        Command.Builder<CommandSender> skipNightBuilder = commandManager.commandBuilder("f")
+        Command.Builder<CommandSender> builder = commandManager.commandBuilder("f")
                 .senderType(Player.class);
 
         // Base Command
-        commandManager.command(skipNightBuilder
+        commandManager.command(builder
                 .meta(CommandMeta.DESCRIPTION, "Allows player to pay respects.")
-                .handler(context -> commandManager.taskRecipe().begin(context).asynchronous(this::onF).execute())
+                .handler(this::onF)
         );
     }
 

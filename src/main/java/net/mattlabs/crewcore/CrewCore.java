@@ -4,6 +4,7 @@ import cloud.commandframework.bukkit.CloudBukkitCapabilities;
 import cloud.commandframework.execution.AsynchronousCommandExecutionCoordinator;
 import cloud.commandframework.execution.FilteringCommandSuggestionProcessor;
 import cloud.commandframework.minecraft.extras.MinecraftExceptionHandler;
+import cloud.commandframework.paper.PaperCommandManager;
 import io.leangen.geantyref.TypeToken;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.mattlabs.crewcore.commands.EnderCommand;
@@ -134,6 +135,10 @@ public class CrewCore extends JavaPlugin {
 
     public Config getConfigCC() {
         return config;
+    }
+
+    public PaperCommandManager<CommandSender> getCommandManager() {
+        return commandManager;
     }
 
     // Vault Helper Methods
