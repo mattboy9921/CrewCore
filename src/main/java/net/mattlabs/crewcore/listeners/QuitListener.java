@@ -13,8 +13,9 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 public class QuitListener implements Listener {
 
-    private BukkitAudiences platform = CrewCore.getInstance().getPlatform();
+    private final BukkitAudiences platform = CrewCore.getInstance().getPlatform();
 
+    @SuppressWarnings("deprecation")
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();

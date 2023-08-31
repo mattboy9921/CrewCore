@@ -13,7 +13,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 public class JoinListener implements Listener {
 
-    private BukkitAudiences platform = CrewCore.getInstance().getPlatform();
+    private final BukkitAudiences platform = CrewCore.getInstance().getPlatform();
 
     public JoinListener() {
 

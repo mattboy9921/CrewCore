@@ -6,12 +6,14 @@ import org.spongepowered.configurate.objectmapping.meta.Setting;
 
 import java.util.ArrayList;
 
+@SuppressWarnings({"FieldMayBeFinal", "FieldCanBeLocal"})
 @ConfigSerializable
 public class Config {
 
+    @SuppressWarnings("unused")
     @Setting(value = "_mattIsAwesome")
     @Comment("CrewCore Configuration\n" +
-            "By Mattboy9921\n" +
+            "By mattboy9921\n" +
             "https://github.com/mattboy9921/CrewChat")
     private boolean _mattIsAwesome = true;
 

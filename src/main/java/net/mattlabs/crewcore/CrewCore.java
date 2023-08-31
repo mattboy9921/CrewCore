@@ -27,7 +27,6 @@ public class CrewCore extends JavaPlugin {
     private boolean discordSRVEnabled;
     private static CrewCore instance;
     public cloud.commandframework.paper.PaperCommandManager<CommandSender> commandManager;
-    private ConfigurateManager configurateManager;
     private BukkitAudiences platform;
     private static Permission permission;
     private Config config;
@@ -56,16 +55,16 @@ public class CrewCore extends JavaPlugin {
 
         // DiscordSRV Check
         if (!hasDiscordSRV()) {
-            this.getLogger().info(String.format("DiscordSRV not detected, disabling integration."));
+            this.getLogger().info("DiscordSRV not detected, disabling integration.");
             discordSRVEnabled = false;
         }
         else {
-            this.getLogger().info(String.format("DiscordSRV detected, enabling integration."));
+            this.getLogger().info("DiscordSRV detected, enabling integration.");
             discordSRVEnabled = true;
         }
 
         // Configuration Section
-        configurateManager = new ConfigurateManager();
+        ConfigurateManager configurateManager = new ConfigurateManager(this);
         configurateManager.add("config.conf", TypeToken.get(Config.class), new Config(), Config::new);
         configurateManager.saveDefaults("config.conf");
         configurateManager.load("config.conf");
@@ -152,7 +151,7 @@ public class CrewCore extends JavaPlugin {
         RegisteredServiceProvider<Permission> rsp = getServer().getServicesManager().getRegistration(Permission.class);
         if (rsp != null) {
             permission = rsp.getProvider();
-            return permission != null;
+            return true;
         }
         else return false;
     }
