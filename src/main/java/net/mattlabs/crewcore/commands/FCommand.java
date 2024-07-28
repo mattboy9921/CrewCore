@@ -1,25 +1,25 @@
 package net.mattlabs.crewcore.commands;
 
-import cloud.commandframework.Command;
-import cloud.commandframework.context.CommandContext;
-import cloud.commandframework.meta.CommandMeta;
-import cloud.commandframework.paper.PaperCommandManager;
 import net.kyori.adventure.title.Title;
 import net.mattlabs.crewcore.CrewCore;
 import net.mattlabs.crewcore.messaging.Messages;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
+import org.incendo.cloud.Command;
+import org.incendo.cloud.context.CommandContext;
+import org.incendo.cloud.description.CommandDescription;
+import org.incendo.cloud.paper.LegacyPaperCommandManager;
 
 import java.time.Duration;
 import java.util.Random;
 
 public class FCommand {
 
-    PaperCommandManager<CommandSender> commandManager;
+    LegacyPaperCommandManager<CommandSender> commandManager;
     Plugin plugin;
 
-    public FCommand(PaperCommandManager<CommandSender> commandManager, Plugin plugin) {
+    public FCommand(LegacyPaperCommandManager<CommandSender> commandManager, Plugin plugin) {
         this.commandManager = commandManager;
         this.plugin = plugin;
         commands();
@@ -32,7 +32,7 @@ public class FCommand {
 
         // Base Command
         commandManager.command(builder
-                .meta(CommandMeta.DESCRIPTION, "Allows player to pay respects.")
+                .commandDescription(CommandDescription.commandDescription("Allows player to pay respects."))
                 .handler(this::onF)
         );
     }
@@ -48,7 +48,7 @@ public class FCommand {
         }
         else {
             for (Player player : CrewCore.getInstance().getServer().getOnlinePlayers())
-                CrewCore.getInstance().getPlatform().player(player).sendActionBar(Messages.pressedFToPayRespects(context.getSender().getName()));
+                CrewCore.getInstance().getPlatform().player(player).sendActionBar(Messages.pressedFToPayRespects(context.sender().getName()));
         }
     }
 }

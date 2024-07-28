@@ -1,10 +1,5 @@
 package net.mattlabs.crewcore;
 
-import cloud.commandframework.bukkit.CloudBukkitCapabilities;
-import cloud.commandframework.execution.AsynchronousCommandExecutionCoordinator;
-import cloud.commandframework.execution.FilteringCommandSuggestionProcessor;
-import cloud.commandframework.minecraft.extras.MinecraftExceptionHandler;
-import cloud.commandframework.paper.PaperCommandManager;
 import io.leangen.geantyref.TypeToken;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.mattlabs.crewcore.commands.EnderCommand;
@@ -19,14 +14,15 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
-
-import java.util.function.Function;
+import org.incendo.cloud.bukkit.CloudBukkitCapabilities;
+import org.incendo.cloud.execution.ExecutionCoordinator;
+import org.incendo.cloud.paper.LegacyPaperCommandManager;
 
 public class CrewCore extends JavaPlugin {
 
     private boolean discordSRVEnabled;
     private static CrewCore instance;
-    public cloud.commandframework.paper.PaperCommandManager<CommandSender> commandManager;
+    public LegacyPaperCommandManager<CommandSender> commandManager;
     private BukkitAudiences platform;
     private static Permission permission;
     private Config config;
@@ -80,33 +76,13 @@ public class CrewCore extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new QuitListener(), this);
 
         // Register Cloud
-        try {
-            commandManager = new cloud.commandframework.paper.PaperCommandManager<>(
-                    this,
-                    AsynchronousCommandExecutionCoordinator.<CommandSender>builder().build(),
-                    Function.identity(),
-                    Function.identity()
-            );
-        } catch (Exception e) {
-            this.getLogger().severe("Could not enable Cloud, disabling plugin...");
-            Bukkit.getPluginManager().disablePlugin(this);
-        }
-        // Use contains filter for suggestions
-        commandManager.commandSuggestionProcessor(new FilteringCommandSuggestionProcessor<>(
-                FilteringCommandSuggestionProcessor.Filter.<CommandSender>contains(true).andTrimBeforeLastSpace()
-        ));
-        // Register Brigadier
-        if (commandManager.hasCapability(CloudBukkitCapabilities.BRIGADIER)) commandManager.registerBrigadier();
-        // Register asynchronous completions
-        if (commandManager.hasCapability(CloudBukkitCapabilities.ASYNCHRONOUS_COMPLETION)) commandManager.registerAsynchronousCompletions();
-        // Override exception handlers
-        new MinecraftExceptionHandler<CommandSender>()
-                .withInvalidSyntaxHandler()
-                .withInvalidSenderHandler()
-                .withNoPermissionHandler()
-                .withArgumentParsingHandler()
-                .withCommandExecutionHandler()
-                .apply(commandManager, platform::sender);
+        commandManager = LegacyPaperCommandManager.createNative(
+                this,
+                ExecutionCoordinator.coordinatorFor(ExecutionCoordinator.nonSchedulingExecutor())
+        );
+        // Register Brigadier, fallback to asynchronous completions
+        if (commandManager.hasCapability(CloudBukkitCapabilities.NATIVE_BRIGADIER) && !testEnabled) commandManager.registerBrigadier();
+        else if (commandManager.hasCapability(CloudBukkitCapabilities.ASYNCHRONOUS_COMPLETION)) commandManager.registerAsynchronousCompletions();
         // Create Commands
         if (config.getEnder() || testEnabled)
             new EnderCommand(commandManager, this);
@@ -137,7 +113,7 @@ public class CrewCore extends JavaPlugin {
         return config;
     }
 
-    public PaperCommandManager<CommandSender> getCommandManager() {
+    public LegacyPaperCommandManager<CommandSender> getCommandManager() {
         return commandManager;
     }
 
